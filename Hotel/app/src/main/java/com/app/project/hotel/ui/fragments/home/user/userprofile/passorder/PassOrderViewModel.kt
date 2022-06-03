@@ -12,9 +12,11 @@ import androidx.lifecycle.viewModelScope
 import com.app.project.hotel.R
 import com.app.project.hotel.api.UserApi
 import com.app.project.hotel.base.responsmodel.UserOrderListDataModel
+import com.app.project.hotel.common.BaseViewModel
 import com.example.uitraning.util.Utils
 import com.example.uitraning.util.coroutines.Main
 import com.example.uitraning.util.log
+import com.example.uitraning.util.rx.autoSetupAllFunctions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,16 +24,18 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class PassOrderViewModel @Inject constructor(val service: UserApi): ViewModel() {
+class PassOrderViewModel @Inject constructor(val service: UserApi) : BaseViewModel() {
     val data: MutableLiveData<MutableList<UserOrderListDataModel.Data?>> = MutableLiveData()
     var refreshUI: ((position: Int, state: Int) -> Unit)? = null
     var notifyOrderListEmpty: (() -> Unit)? = null
     var pageCount: MutableLiveData<Int> = MutableLiveData()
 
-    fun getOrderLength(userId: String) = viewModelScope.launch(Dispatchers.IO)
-    {
-        val ans = service.getOrderLength(userId)
-        pageCount.postValue((ans.data as String).toInt())
+    fun getOrderLength(userId: String) {
+        service.getOrderLength(userId)
+            .autoSetupAllFunctions(1)
+            .subscribe({ ans ->
+                pageCount.postValue((ans.data as String).toInt())
+            }, {}).bindLife()
     }
 
     fun initOrderListData(
@@ -41,18 +45,19 @@ class PassOrderViewModel @Inject constructor(val service: UserApi): ViewModel() 
         offset: Int? = 0,
         orderTimeType: Int
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val ans = service.getOrderList(userId, hotelId, offset, orderTimeType).data
-            if (ans?.size == 0) {
-                Main {
-                    notifyOrderListEmpty?.invoke()
-                    dialog?.dismiss()
+        service.getOrderList(userId, hotelId, offset, orderTimeType)
+            .autoSetupAllFunctions(4)
+            .subscribe({ ans ->
+                if (ans?.data?.size == 0) {
+                    Main {
+                        notifyOrderListEmpty?.invoke()
+                        dialog?.dismiss()
+                    }
+                } else if (!ans?.data.isNullOrEmpty()) {
+                    data.postValue(ans.data!!.toMutableList())
                 }
-            } else {
-                data.postValue(ans!!.toMutableList())
                 dialog?.dismiss()
-            }
-        }
+            }, { dialog?.dismiss() }).bindLife()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -61,30 +66,30 @@ class PassOrderViewModel @Inject constructor(val service: UserApi): ViewModel() 
         context: Context?,
         dialog: ProgressDialog
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val commentId = data.userId + data.roomId + Utils.getNowTimeString()
-            service.upLoadUserComment(
-                data.orderId!!,
-                commentId,
-                data.hotelId!!.toInt(),
-                data.userId!!,
-                data.userComment!!,
-                data.userCommentScore!!,
-                data.startTime!!,
-                data.roomId!!
-            )
-            dialog.dismiss()
-            withContext(Dispatchers.Main) {
-                AlertDialog.Builder(context)
-                    .setIcon(R.drawable.ic_baseline_check_24)
-                    .setMessage("提交成功")
-                    .setPositiveButton("Confirm", object : DialogInterface.OnClickListener {
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            p0?.dismiss()
-                        }
-                    })
-                    .show()
-            }
-        }
+        val commentId = data.userId + data.roomId + Utils.getNowTimeString()
+        service.upLoadUserComment(
+            data.orderId!!,
+            commentId,
+            data.hotelId!!.toInt(),
+            data.userId!!,
+            data.userComment!!,
+            data.userCommentScore!!,
+            data.startTime!!,
+            data.roomId!!
+        ).autoSetupAllFunctions(1)
+            .subscribe({
+                Main {
+                    AlertDialog.Builder(context)
+                        .setIcon(R.drawable.ic_baseline_check_24)
+                        .setMessage("提交成功")
+                        .setPositiveButton("Confirm", object : DialogInterface.OnClickListener {
+                            override fun onClick(p0: DialogInterface?, p1: Int) {
+                                p0?.dismiss()
+                            }
+                        })
+                        .show()
+                }
+                dialog.dismiss()
+            }, {}).bindLife()
     }
 }

@@ -31,11 +31,9 @@ class SuperManageHotelViewModel @Inject constructor(val service: SuperApi) : Vie
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val ans = service.queryHotelList(hotelId, hotelName, hotelLocation, offset, sortType)
-            if (ans.data?.size != 0) {
-                parentData.postValue(ans.data!!.toMutableList())
-            }
-            dialog.dismiss()
+            parentData.postValue(ans.data!!.toMutableList())
         }
+        dialog.dismiss()
     }
 
     fun downLoadRoomList(hotelId: String, downRoomDialog: ProgressDialog) {

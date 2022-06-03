@@ -37,6 +37,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.app.project.hotel.R
 import com.app.project.hotel.databinding.DialogMyToastBinding
 import com.app.project.hotel.common.mwindow
+import io.reactivex.Single
+import io.reactivex.SingleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
@@ -50,7 +54,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.math.max
-
 
 fun Any?.log(e: Any ? = "") {
     var add = ""
