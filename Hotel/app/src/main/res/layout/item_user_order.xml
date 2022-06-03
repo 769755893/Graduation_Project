@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.core.text.HtmlCompat"/>
+        <import type="android.view.View"/>
+        <variable
+            name="data"
+            type="com.app.project.hotel.base.responsmodel.UserOrderListDataModel.Data"/>
+
+        <variable
+            name="dayCount"
+            type="Integer" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0f7f7f7f">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="36dp"
+            android:background="@color/white"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_order_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{`订单编号: ` + data.orderId}"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@id/iv_hotel_Icon"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="订单编号: 1234567965123" />
+
+            <TextView
+                android:id="@+id/tv_order_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{`订单时间:` + data.orderTime}"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_hotel_name"
+                app:layout_constraintStart_toStartOf="@+id/tv_order_status"
+                app:layout_constraintTop_toBottomOf="@+id/tv_order_status"
+                tools:text="订单时间：2021-1-1" />
+
+            <TextView
+                android:id="@+id/tv_order_status"
+                orderStatus="@{data.status}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_hotel_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_hotel_name"
+                tools:text="订单状态: 已完成" />
+
+            <ImageView
+                android:id="@+id/iv_hotel_Icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_room"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_hotel_name" />
+
+            <com.app.project.hotel.ui.view.AutoSizeTextView
+                android:id="@+id/tv_hotel_name"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{data.hotelName}"
+                app:layout_constraintStart_toStartOf="@+id/tv_order_id"
+                app:layout_constraintTop_toBottomOf="@+id/tv_order_id"
+                tools:text="旅行时光酒店" />
+
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{`联系电话: ` + data.hotelPhone}"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_order_time"
+                app:layout_constraintTop_toTopOf="@+id/tv_hotel_location"
+                tools:text="酒店联系电话: 17378582836" />
+
+            <com.app.project.hotel.ui.view.AutoSizeTextView
+                android:id="@+id/tv_room_desc"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="@{data.roomName + ` ` + data.roomDesc + ` ` + data.roomFeature}"
+                android:textSize="8sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_hotel_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_hotel_name"
+                tools:ignore="InvalidId"
+                tools:text="有早餐" />
+
+            <ImageView
+                android:id="@+id/iv_hotel_location_icon"
+                android:layout_width="15dp"
+                android:scaleType="fitXY"
+                android:layout_height="15dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_hotel_location"
+                app:layout_constraintStart_toStartOf="@+id/iv_hotel_Icon"
+                app:layout_constraintTop_toBottomOf="@+id/iv_hotel_Icon" />
+
+            <com.app.project.hotel.ui.view.AutoSizeTextView
+                android:id="@+id/tv_hotel_location"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@{data.hotelLocation}"
+                app:layout_constraintStart_toStartOf="@+id/tv_hotel_name"
+                app:layout_constraintTop_toTopOf="@+id/iv_hotel_location_icon"
+                tools:text="东方新城" />
+
+            <TextView
+                android:id="@+id/btn_user_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:drawableRight="@drawable/icn_chevron_down_black"
+                android:text="订单已完成, 评论入口"
+                android:visibility="@{data.status == 3 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@+id/iv_time_icon"
+                app:layout_constraintTop_toBottomOf="@+id/iv_time_icon" />
+
+            <ImageView
+                android:id="@+id/iv_time_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:scaleType="fitXY"
+                android:layout_marginTop="14dp"
+                android:src="@drawable/ic_time_icon"
+                app:layout_constraintStart_toStartOf="@+id/iv_hotel_location_icon"
+                app:layout_constraintTop_toBottomOf="@+id/iv_hotel_location_icon" />
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.startTime + ` 至 `}"
+                app:layout_constraintStart_toStartOf="@+id/tv_hotel_location"
+                app:layout_constraintTop_toTopOf="@+id/iv_time_icon"
+                tools:text="02-15 至" />
+
+            <TextView
+                android:id="@+id/tv_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{data.endTime}"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/tv_start_time"
+                tools:text="3-15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@{HtmlCompat.fromHtml(`共&lt;font color = #ff0000>` + dayCount + `&lt;/font>天`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+                app:layout_constraintStart_toEndOf="@+id/tv_end_time"
+                app:layout_constraintTop_toTopOf="@id/tv_end_time" />
+
+            <ImageView
+                android:id="@+id/iv_money"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/icon_money"
+                app:layout_constraintEnd_toStartOf="@+id/tv_room_price"
+                app:layout_constraintTop_toTopOf="@+id/tv_room_price" />
+
+            <TextView
+                android:id="@+id/tv_room_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="300dp"
+                android:layout_marginTop="4dp"
+                android:gravity="right"
+                android:text="@{data.roomPrice}"
+                android:textColor="@color/primary"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_end_time"
+                tools:text="55" />
+
+            <TextView
+                android:id="@+id/btn_cancel"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="252dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/selector_btn_normal_click"
+                android:gravity="center_horizontal"
+                android:text="取消订单"
+                android:visibility="@{data.status == -1 || data.status == 1 || data.status == 2 ||data.status == 3 || data.status == 4 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_money" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

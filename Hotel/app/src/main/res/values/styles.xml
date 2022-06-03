@@ -1,0 +1,15 @@
+<resources>
+    <style name="Widget.Theme.Hotel.ActionBar.Fullscreen" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Widget.Theme.Hotel.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+    </style>
+
+    <style name="bottom_in_bottom_out_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_anim</item>
+    </style>
+</resources>

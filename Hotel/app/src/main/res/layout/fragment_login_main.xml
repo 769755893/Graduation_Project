@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.project.hotel.ui.fragments.login.main.LoginMainData" />
+
+        <variable
+            name="pressed"
+            type="Boolean" />
+
+        <variable
+            name="eyeClick"
+            type="kotlin.jvm.functions.Function0" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.fragments.login.main.LoginMainFragment">
+        <com.app.project.hotel.ui.view.MyVideoView
+            android:id="@+id/vv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7f7f7f7f"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/navigation"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@color/primary"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_support"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/ic_baseline_contact_support_24"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="欢迎使用酒店预定系统~"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_forget_pass_btn"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/selector_sign_up_btn"
+                android:elevation="15dp"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="忘记密码？"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.9"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exit_btn" />
+
+            <TextView
+                android:id="@+id/tv_sign_up"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/selector_sign_up_btn"
+                android:elevation="15dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="还未注册？"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_forget_pass_btn" />
+
+            <TextView
+                android:id="@+id/tv_login_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="60dp"
+                android:background="@drawable/selector_sign_up_btn"
+                android:elevation="15dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="登录"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/et_user_pass_input"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="@+id/et_user_pass_input"
+                app:layout_constraintTop_toBottomOf="@+id/et_user_pass_input" />
+
+            <com.app.project.hotel.ui.view.EditTextDrawableView
+                android:id="@+id/et_user_pass_input"
+                resizeDrawable="@{pressed}"
+                android:layout_width="215dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/bg_edit_text_background"
+                android:elevation="15dp"
+                android:hint="请输入你的密码"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="@={data.userpass}"
+                android:textColor="#7F000000"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/et_user_name_input"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/et_user_name_input"
+                app:layout_constraintTop_toBottomOf="@+id/et_user_name_input" />
+
+            <com.app.project.hotel.ui.view.EditTextDrawableView
+                android:id="@+id/et_user_name_input"
+                android:layout_width="215dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="46dp"
+                android:background="@drawable/bg_edit_text_background"
+                android:elevation="15dp"
+                android:hint="请输入你的用户名(最大12枚)"
+                android:maxLength="12"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:text="@={data.username}"
+                android:textColor="#7F000000"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/iv_login_logo"
+                app:layout_constraintStart_toStartOf="@+id/iv_login_logo"
+                app:layout_constraintTop_toBottomOf="@+id/iv_login_logo" />
+
+            <CheckBox
+                android:id="@+id/keep_user_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/et_user_pass_input"
+                android:text="记住密码？"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/tv_user_pass"
+                app:layout_constraintTop_toBottomOf="@+id/et_user_pass_input" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:elevation="15dp"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="用户名"
+                android:textColor="#7Fffffff"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/et_user_name_input"
+                app:layout_constraintTop_toTopOf="@+id/et_user_name_input"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_user_pass"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="6dp"
+                android:elevation="15dp"
+                android:gravity="left"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="密码"
+                android:textColor="#7Fffffff"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_user_name"
+                app:layout_constraintEnd_toStartOf="@+id/et_user_pass_input"
+                app:layout_constraintStart_toStartOf="@+id/tv_user_name"
+                app:layout_constraintTop_toTopOf="@+id/et_user_pass_input"
+                tools:ignore="RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/tv_exit_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/selector_sign_up_btn"
+                android:elevation="15dp"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="退出"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tv_login_btn"
+                app:layout_constraintStart_toStartOf="@+id/tv_login_btn"
+                app:layout_constraintTop_toBottomOf="@+id/tv_login_btn" />
+
+            <ImageView
+                android:id="@+id/iv_login_logo"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="84dp"
+                android:elevation="15dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_login_new_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+</layout>

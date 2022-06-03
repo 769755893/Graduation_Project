@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="androidx.core.text.HtmlCompat"/>
+        <variable
+            name="hotelIdText"
+            type="String" />
+
+        <variable
+            name="hotelCodeText"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        android:background="@drawable/bg_activated_submit_btn_round_corners"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册成功!"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_baseline_check_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="请牢记您的认证编号和密码:"
+            android:textColor="@color/primary"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_hotel_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:text="@{HtmlCompat.fromHtml(`您的认证编号为:&lt;font color = #ff0000>`+hotelIdText+ `&lt;/font>`,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_hotel_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            android:text="@{HtmlCompat.fromHtml(`您的密码为:&lt;font color = #ff0000>`+hotelCodeText+ `&lt;/font>`,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            />
+
+        <TextView
+            android:id="@+id/btn_confirm"
+            android:gravity="center_horizontal"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@drawable/selector_sign_up_btn"
+            android:text="confirm"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/loginMain">
+    <fragment
+        android:id="@+id/support"
+        android:name="com.app.project.hotel.common.SupportFragment"
+        android:label="fragment_support"
+        tools:layout="@layout/fragment_common_support">
+        <action
+            android:id="@+id/action_support_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_pass_order"
+        android:name="com.app.project.hotel.ui.fragments.home.user.userprofile.passorder.UserPassOrderFragment"
+        android:label="fragment_pass_order"
+        tools:layout="@layout/fragment_user_pass_order" />
+    <fragment
+        android:id="@+id/loginMain"
+        android:name="com.app.project.hotel.ui.fragments.login.main.LoginMainFragment"
+        android:label="fragment_login_main"
+        tools:layout="@layout/fragment_login_main">
+        <action
+            android:id="@+id/action_loginMain_to_loginSignUp"
+            app:destination="@id/loginSignUp"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+        <action
+            android:id="@+id/action_loginMain_to_loginSuperUser"
+            app:destination="@id/loginSuperUser"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+        <action
+            android:id="@+id/action_loginMain_to_loginForgetPass"
+            app:destination="@id/loginForgetPass"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+        <action
+            android:id="@+id/action_loginMain_to_login_Hotel"
+            app:destination="@id/login_Hotel"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+        <action
+            android:id="@+id/action_loginMain_to_userMainPage"
+            app:destination="@id/userMainPage"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginSignUp"
+        android:name="com.app.project.hotel.ui.fragments.login.sign.LoginSignUpFragment"
+        android:label="fragment_login_sign_up"
+        tools:layout="@layout/fragment_login_sign_up">
+        <action
+            android:id="@+id/action_loginSignUp_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginForgetPass"
+        android:name="com.app.project.hotel.ui.fragments.login.forget.LoginForgetPassFragment"
+        android:label="fragment_login_forget_pass"
+        tools:layout="@layout/fragment_login_forget_pass">
+        <action
+            android:id="@+id/action_loginForgetPass_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginSuperUser"
+        android:name="com.app.project.hotel.ui.fragments.login.root.LoginSuperUserFragment"
+        android:label="fragment_login_super_user"
+        tools:layout="@layout/fragment_login_super_user">
+        <action
+            android:id="@+id/action_loginSuperUser_to_superMainPage"
+            app:destination="@id/superMainPage"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+        <action
+            android:id="@+id/action_loginSuperUser_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+        <action
+            android:id="@+id/action_loginSuperUser_to_login_Hotel"
+            app:destination="@id/login_Hotel"
+            app:enterAnim="@anim/left_in_anim"
+            app:exitAnim="@anim/left_out_anim"
+            app:popEnterAnim="@anim/left_in_anim"
+            app:popExitAnim="@anim/left_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/login_Hotel"
+        android:name="com.app.project.hotel.ui.fragments.login.hotel.LoginHotelFragment"
+        android:label="fragment_login__hotel"
+        tools:layout="@layout/fragment_login_hotel">
+        <action
+            android:id="@+id/action_login_Hotel_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
+        <action
+            android:id="@+id/action_login_Hotel_to_hotelMainPage"
+            app:destination="@id/hotelMainPage"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/userMainPage"
+        android:name="com.app.project.hotel.ui.fragments.home.user.main.UserMainPage"
+        android:label="fragment_user_main_page"
+        tools:layout="@layout/fragment_user_main_page">
+        <action
+            android:id="@+id/action_userMainPage_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
+        <action
+            android:id="@+id/action_userMainPage_to_userHotelRoomPage"
+            app:destination="@id/userHotelRoomPage"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/superMainPage"
+        android:name="com.app.project.hotel.ui.fragments.home.root.SuperMainPage"
+        android:label="fragment_super_main_page"
+        tools:layout="@layout/fragment_super_main_page">
+        <action
+            android:id="@+id/action_superMainPage_to_loginSuperUser"
+            app:destination="@id/loginSuperUser"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/hotelMainPage"
+        android:name="com.app.project.hotel.ui.fragments.home.hotel.HotelMainPageFragment"
+        android:label="fragment_hotel_main_page"
+        tools:layout="@layout/fragment_hotel_main_page">
+        <action
+            android:id="@+id/action_hotelMainPage_to_login_Hotel"
+            app:destination="@id/login_Hotel" />
+    </fragment>
+    <fragment
+        android:id="@+id/userHotelRoomPage"
+        android:name="com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.UserHotelRoomRootFragment"
+        android:label="fragment_user_hotel_room_page"
+        tools:layout="@layout/fragment_user_hotel_room_page">
+        <action
+            android:id="@+id/action_userHotelRoomPage_to_userMainPage"
+            app:destination="@id/userMainPage"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
+    </fragment>
+</navigation>

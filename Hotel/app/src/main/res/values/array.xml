@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sr">
+        <item>不通过</item>
+        <item>通过</item>
+    </string-array>
+
+    <string-array name="account_state_arr">
+        <item>正常状态</item>
+        <item>封禁状态</item>
+    </string-array>
+
+    <string-array name="user_hotel_sort">
+        <item>全部</item>
+        <item>价格最低</item>
+        <item>评分最高</item>
+        <item>销量最多</item>
+    </string-array>
+
+    <string-array name="user_comment_sort">
+        <item>全部</item>
+        <item>评分最高</item>
+        <item>评分最低</item>
+        <item>点赞最多</item>
+    </string-array>
+</resources>

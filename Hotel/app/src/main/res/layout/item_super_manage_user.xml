@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.core.text.HtmlCompat"/>
+        <variable
+            name="data"
+            type="com.app.project.hotel.base.responsmodel.SuperManageUserDataModel.Data" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.userBadCnt &lt; 1 ? HtmlCompat.fromHtml(`用户行为: &lt;font color = #ff0000>优良&lt;/font>`,HtmlCompat.FROM_HTML_MODE_COMPACT) : data.userBadCnt &lt; 2 ? HtmlCompat.fromHtml(`用户行为: &lt;font color = #ff0000>良好&lt;/font>`,HtmlCompat.FROM_HTML_MODE_COMPACT) : data.userBadCnt &lt; 3 ? HtmlCompat.fromHtml(`用户行为: &lt;font color = #ff0000>差&lt;/font>`,HtmlCompat.FROM_HTML_MODE_COMPACT) : HtmlCompat.fromHtml(`用户行为: &lt;font color = #ff0000>异常&lt;/font>`,HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_hotel_pass"
+            app:layout_constraintTop_toTopOf="@+id/tv_hotel_location"
+            tools:text="用户行为:差" />
+
+
+        <ImageView
+            android:id="@+id/iv_user_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:scaleType="fitXY"
+            filterBitmap="@{data.userIcon}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_user_id"
+            tools:src="@drawable/ic_baseline_person_pin_24" />
+
+        <TextView
+            android:id="@+id/tv_hotel_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{HtmlCompat.fromHtml(`&lt;small>用户名: &lt;/small>` + `&lt;font color = #ff0000>` + data.userName + `&lt;/font>`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_user_id"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_id"
+            tools:text="用户名: cj" />
+
+        <TextView
+            android:id="@+id/tv_user_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="8dp"
+            android:textSize="8sp"
+            android:text="@{HtmlCompat.fromHtml(`&lt;small>id: &lt;/small>` + `&lt;font color = #ff0000>` + data.userId + `&lt;/font>`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="id: 12345" />
+
+        <TextView
+            android:id="@+id/tv_hotel_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{HtmlCompat.fromHtml(`&lt;small>地址: &lt;/small>` + `&lt;font color = #ff0000>` + data.userLocation + `&lt;/font>`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_hotel_phone"
+            app:layout_constraintTop_toTopOf="@+id/tv_hotel_id"
+            tools:text="地址：春熙路" />
+
+        <TextView
+            android:id="@+id/tv_hotel_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="44dp"
+            android:text="@{HtmlCompat.fromHtml(`&lt;small>联系电话: &lt;/small>` + `&lt;font color = #ff0000>` + data.userPhone + `&lt;/font>`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textSize="8sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_hotel_name"
+            app:layout_constraintTop_toTopOf="@+id/tv_hotel_name"
+            tools:text="联系电话17378582836" />
+
+        <TextView
+            android:id="@+id/tv_hotel_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{HtmlCompat.fromHtml(`&lt;small>密码: &lt;/small>` + `&lt;font color = #ff0000>` + data.userPass + `&lt;/font>`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_hotel_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotel_name"
+            tools:text="密码:1000" />
+
+        <TextView
+            android:id="@+id/tv_hotel_pass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@{HtmlCompat.fromHtml(`&lt;small>生日: &lt;/small>` + `&lt;font color = #ff0000>` + data.userDate + `&lt;/font>`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textSize="8sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_hotel_phone"
+            app:layout_constraintTop_toTopOf="@+id/tv_hotel_phone"
+            tools:text="生日:2021-12-31" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:background="#7f000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotel_id" />
+
+        <Spinner
+            android:id="@+id/sr_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:layout_marginTop="20dp"
+            android:entries="@array/account_state_arr"
+            android:selectedItemPosition="@{data.userStatus}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hotel_location" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            app:layout_constraintBottom_toBottomOf="@+id/sr_state"
+            app:layout_constraintStart_toEndOf="@+id/sr_state"
+            app:layout_constraintTop_toTopOf="@+id/sr_state" />
+        <TextView
+            android:id="@+id/btn_update"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_keep_btn_round_keeping"
+            android:gravity="center_horizontal"
+            android:text="更新"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/sr_state" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
