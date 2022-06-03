@@ -174,8 +174,7 @@ class LoginMainFragment : BaseFragment<FragmentLoginMainBinding>() {
                         viewBind,
                         this@LoginMainFragment,
                         keep,
-                        showProgressDialog(),
-                        requireActivity().supportFragmentManager
+                        showProgressDialog()
                     )
                 }.bindLife()
             tvExitBtn.clicks()

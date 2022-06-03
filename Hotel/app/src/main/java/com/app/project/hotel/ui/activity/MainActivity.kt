@@ -58,6 +58,7 @@ class MainActivity : BaseMainActivity() {
 
         viewModel.msgHintCallBack = {
             if ("true" in it) {
+                "CallBackReturn".log(it)
                 viewBind?.navigationBottomBar?.visibility = View.GONE
                 if ("hotel" in it) {
                     findNavController(R.id.nav_register_frag).navigate(R.id.action_loginMain_to_login_Hotel)
@@ -65,6 +66,7 @@ class MainActivity : BaseMainActivity() {
                     findNavController(R.id.nav_register_frag).navigate(R.id.loginSuperUser)
                 }
             } else {
+                "CallBackReturn".log(it)
                 AlertDialog.Builder(this)
                     .setIcon(R.drawable.ic_baseline_error_24)
                     .setTitle("提示")

@@ -99,21 +99,22 @@ class SuperManageUserFragment : BaseFragment<FragmentSuperManageUserBinding>() {
         viewBind.ivClearBtn.visibility = View.GONE
         viewBind.etSearchContentText
             .textChanges()
-            .throttleFirst(3, TimeUnit.SECONDS)
             .subscribe {
                 val text = it.toString()
-                if (Utils.isAllNumber(it.toString())) {
-                    viewModel.flushUserList(
-                        userId = text,
-                        dialog = showDownLoadProcess(),
-                        sortType = 0
-                    )
-                } else {
-                    viewModel.flushUserList(
-                        userName = text,
-                        dialog = showDownLoadProcess(),
-                        sortType = 0
-                    )
+                if (!DENY_FIRST_TIME_CALL_BACK_INIT) {
+                    if (Utils.isAllNumber(text)) {
+                        viewModel.flushUserList(
+                            userId = text,
+                            dialog = showDownLoadProcess(),
+                            sortType = 0
+                        )
+                    } else {
+                        viewModel.flushUserList(
+                            userName = text,
+                            dialog = showDownLoadProcess(),
+                            sortType = 0
+                        )
+                    }
                 }
             }.bindLife()
         viewBind.etSearchContentText
@@ -126,8 +127,10 @@ class SuperManageUserFragment : BaseFragment<FragmentSuperManageUserBinding>() {
         viewBind.ivClearBtn.clicks()
             .subscribe {
                 viewBind.etSearchContentText.text.clear()
-                adapter.data = viewModel.data.value!!
-                adapter.textInputFilter("")
+                viewModel.flushUserList(
+                    dialog = showDownLoadProcess(),
+                    sortType = 0
+                )
             }.bindLife()
 
         adapter.btnUpdateCall = { userId, userState ->

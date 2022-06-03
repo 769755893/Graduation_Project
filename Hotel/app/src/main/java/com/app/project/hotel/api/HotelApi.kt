@@ -11,7 +11,7 @@ import retrofit2.http.POST
 interface HotelApi {
     @FormUrlEncoded
     @POST("getHotelBaseMsg")
-    suspend fun getHotelBaseMsg(@Field("hotelId") hotelId: Int? = null): HotelMainPageDataModel
+    fun getHotelBaseMsg(@Field("hotelId") hotelId: Int? = null): HotelMainPageDataModel
 
     @FormUrlEncoded
     @POST("getOrderLength")

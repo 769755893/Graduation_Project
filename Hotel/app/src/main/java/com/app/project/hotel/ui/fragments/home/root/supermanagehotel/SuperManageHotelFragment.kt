@@ -50,9 +50,7 @@ class SuperManageHotelFragment : BaseFragment<FragmentSuperManageHotelBinding>()
                 position: Int,
                 id: Long
             ) {
-                if (!DENY_FIRST_TIME_CALL_BACK_INIT) {
-                    viewModel.downLoadHotelList(dialog = showDownLoadProcess(), sortType = position)
-                }
+                viewModel.downLoadHotelList(dialog = showDownLoadProcess(), sortType = position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -109,24 +107,24 @@ class SuperManageHotelFragment : BaseFragment<FragmentSuperManageHotelBinding>()
     }
 
     override fun initCaseSecond() {
-        val adapter = viewBind.rv.adapter as SuperManageHotelAdapter
         viewBind.ivClearBtn.visibility = View.GONE
         viewBind.etSearchContentText.textChanges()
-            .throttleFirst(2, TimeUnit.SECONDS)
             .subscribe {
                 val text = it.toString()
-                if (Utils.isAllNumber(text)) {
-                    viewModel.downLoadHotelList(
-                        hotelId = text.toInt(),
-                        dialog = showDownLoadProcess(),
-                        sortType = 0
-                    )
-                } else {
-                    viewModel.downLoadHotelList(
-                        hotelName = text,
-                        dialog = showDownLoadProcess(),
-                        sortType = 0
-                    )
+                if (!DENY_FIRST_TIME_CALL_BACK_INIT) {
+                    if (Utils.isAllNumber(text)) {
+                        viewModel.downLoadHotelList(
+                            hotelId = text.toInt(),
+                            dialog = showDownLoadProcess(),
+                            sortType = 0
+                        )
+                    } else {
+                        viewModel.downLoadHotelList(
+                            hotelName = text,
+                            dialog = showDownLoadProcess(),
+                            sortType = 0
+                        )
+                    }
                 }
             }.bindLife()
         viewBind.etSearchContentText.textChanges()
@@ -140,8 +138,10 @@ class SuperManageHotelFragment : BaseFragment<FragmentSuperManageHotelBinding>()
         viewBind.ivClearBtn.clicks()
             .subscribe {
                 viewBind.etSearchContentText.text.clear()
-                adapter.data = viewModel.parentData.value!!
-                adapter.textInputFilter("")
+                viewModel.downLoadHotelList(
+                    dialog = showDownLoadProcess(),
+                    sortType = 0
+                )
             }.bindLife()
     }
 

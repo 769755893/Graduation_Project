@@ -1,50 +1,51 @@
 package com.app.project.hotel.api
 
 import com.app.project.hotel.base.responsmodel.BaseResponseBody
+import io.reactivex.Single
 import retrofit2.http.*
 
 interface LoginApi {
     @FormUrlEncoded
     @POST("userLogin")
-    suspend fun userLogin(
+    fun userLogin(
         @Field("userId") userName: String? = null,
         @Field("userPass") userPass: String? = null
-    ): BaseResponseBody
+    ): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("getUserIcon")
-    suspend fun getUserIcon(
+    fun getUserIcon(
         @Field("userId") userId: String? = null
-    ): BaseResponseBody
+    ): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("loginHotel")
-    suspend fun loginHotel(
+    fun loginHotel(
         @Field("hotelId") hotelId: Int? = null,
         @Field("hotelPass") hotelPass: String? = null
-    ): BaseResponseBody
+    ): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("userSign")
-    suspend fun userSign(
+    fun userSign(
         @Field("userId") userName: String? = null,
         @Field("userPass") userPass: String? = null,
         @Field("userDate") userDate: String? = null
-    ): BaseResponseBody
+    ): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("forgetQuery")
-    suspend fun forgetQuery(
+    fun forgetQuery(
         @Field("userId") userName: String? = null,
         @Field("userDate") userDate: String? = null
-    ): BaseResponseBody
+    ): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("signHotel")
-    suspend fun signHotel(
+    fun signHotel(
         @Field("hotelName") hotelName: String? = null,
         @Field("hotelCode") hotelCode: String? = null,
         @Field("hotelPhone") hotelPhone: String? = null,
         @Field("hotelLocation") hotelLocation: String? = null
-    ): BaseResponseBody
+    ): Single<BaseResponseBody>
 }

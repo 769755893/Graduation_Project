@@ -42,6 +42,10 @@ class UserOrderListFragment : BaseFragment<FragmentUserOrderListBinding>() {
             }
         }
         viewModel.getOrderLength(userViewModel.data.value?.userId!!)
+
+        viewModel.loadFailed = {
+            viewBind.slRefreshLayout.isRefreshing = false
+        }
     }
     @SuppressLint("NotifyDataSetChanged")
     override fun initCase() {

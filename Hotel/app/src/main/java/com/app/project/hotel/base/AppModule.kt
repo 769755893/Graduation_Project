@@ -11,6 +11,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -28,8 +29,9 @@ object AppModule {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("http://124.223.190.160:8080/hotel/login/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(globalMoshi).asLenient())
             .client(http)
-            .addConverterFactory(MoshiConverterFactory.create())
             .build()
         return retrofit.create(LoginApi::class.java)
     }
@@ -44,8 +46,9 @@ object AppModule {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("http://124.223.190.160:8080/hotel/user/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(globalMoshi).asLenient())
             .client(http)
-            .addConverterFactory(MoshiConverterFactory.create())
             .build()
         return retrofit.create(UserApi::class.java)
     }
@@ -60,8 +63,9 @@ object AppModule {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("http://124.223.190.160:8080/hotel/super/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(globalMoshi).asLenient())
             .client(http)
-            .addConverterFactory(MoshiConverterFactory.create())
             .build()
         return retrofit.create(SuperApi::class.java)
     }
@@ -76,8 +80,9 @@ object AppModule {
             .build()
         val retrofit = Retrofit.Builder()
             .baseUrl("http://124.223.190.160:8080/hotel/hotel/")
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(globalMoshi).asLenient())
             .client(http)
-            .addConverterFactory(MoshiConverterFactory.create())
             .build()
         return retrofit.create(HotelApi::class.java)
     }

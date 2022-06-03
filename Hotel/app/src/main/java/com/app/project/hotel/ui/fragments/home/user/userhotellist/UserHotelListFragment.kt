@@ -37,7 +37,7 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
     @SuppressLint("NotifyDataSetChanged")
     override fun initViewModelData() {
         super.initViewModelData()
-        viewModel.initData(0, 0, showProgressDialog = showProgressDialog())
+        viewModel.getHotelList(0, 0, showProgressDialog = showProgressDialog())
         viewModel.filter = {
             hotelListAdapter.filterText(it)
         }
@@ -46,6 +46,10 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
             hotelListAdapter.notifyDataSetChanged()
         }
         viewModel.getHotelCount()
+
+        viewModel.loadFailed = {
+            viewBind.slRefreshLayout.isRefreshing = false
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -69,7 +73,7 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
             }
         }
         viewBind.slRefreshLayout.setOnRefreshListener {
-            viewModel.initData(0, 0, showProgressDialog = showProgressDialog())
+            viewModel.getHotelList(0, 0, showProgressDialog = showProgressDialog())
         }
     }
 
@@ -78,7 +82,7 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
         viewBind.srSort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if (!DENY_FIRST_TIME_CALL_BACK_INIT) {
-                    viewModel.initData(sortType = p2, showProgressDialog = showProgressDialog())
+                    viewModel.getHotelList(sortType = p2, showProgressDialog = showProgressDialog())
                 }
             }
 
@@ -94,7 +98,7 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
             .throttleFirst(3, TimeUnit.SECONDS)
             .subscribe {
                 if (!DENY_FIRST_TIME_CALL_BACK_INIT && it.isNotEmpty()) {
-                    viewModel.initData(0, 0, it.toString(), showProgressDialog())
+                    viewModel.getHotelList(0, 0, it.toString(), showProgressDialog())
                 }
             }
             .bindLife()
@@ -123,7 +127,7 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
         viewBind.rvYs.adapter = ysAdapter
         ysAdapter.pageClick = {
             if (!DENY_FIRST_TIME_CALL_BACK_INIT) {
-                viewModel.initData(it * HOTEL_CNT, 0, showProgressDialog = showProgressDialog())
+                viewModel.getHotelList(it * HOTEL_CNT, 0, showProgressDialog = showProgressDialog())
             }
         }
         viewModel.pageCount.observe(this) {

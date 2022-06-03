@@ -3,6 +3,7 @@ package com.app.project.hotel.api
 import com.app.project.hotel.base.responsmodel.BaseResponseBody
 import com.app.project.hotel.base.responsmodel.SuperManageHotelDataModel
 import com.app.project.hotel.base.responsmodel.SuperManageUserDataModel
+import io.reactivex.Single
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -10,7 +11,7 @@ import retrofit2.http.POST
 interface SuperApi {
     @FormUrlEncoded
     @POST("login")
-    suspend fun login(@Field("key") key: String? = null): BaseResponseBody
+    fun login(@Field("key") key: String? = null): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("queryHotelList")
@@ -54,11 +55,11 @@ interface SuperApi {
 
     @FormUrlEncoded
     @POST("hotelEnterRequest")
-    suspend fun hotelEnterRequest(@Field("key") key: String? = null): BaseResponseBody
+    fun hotelEnterRequest(@Field("key") key: String? = null): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("superEnterRequest")
-    suspend fun superEnterRequest(@Field("key") key: String? = null): BaseResponseBody
+    fun superEnterRequest(@Field("key") key: String? = null): Single<BaseResponseBody>
 
     @FormUrlEncoded
     @POST("upLoadUserState")

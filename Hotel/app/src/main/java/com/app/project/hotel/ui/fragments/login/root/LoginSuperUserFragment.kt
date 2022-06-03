@@ -11,6 +11,7 @@ import com.app.project.hotel.ui.activity.MainActivity
 import com.app.project.hotel.common.BaseFragment
 import com.example.uitraning.util.coroutines.Co
 import com.example.uitraning.util.coroutines.Main
+import com.example.uitraning.util.rx.autoSetupAllFunctions
 import com.jakewharton.rxbinding3.view.clicks
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -47,48 +48,49 @@ class LoginSuperUserFragment : BaseFragment<FragmentLoginSuperUserBinding>() {
     }
 
     private fun superLoginStart() {
-        Co.launch(Dispatchers.IO) {
-            if (!viewBind.etInput.text.isNullOrBlank()) {
-                val ans = service.login(viewBind.etInput.text.toString())
-                if (ans.msg == "true") {
-                    Main {
-                        AlertDialog.Builder(requireContext())
-                            .setTitle("Correct")
-                            .setIcon(
-                                ResourcesCompat.getDrawable(
-                                    resources,
-                                    R.drawable.ic_baseline_check_24,
-                                    resources.newTheme()
+        if (!viewBind.etInput.text.isNullOrBlank()) {
+            service.login(viewBind.etInput.text.toString())
+                .autoSetupAllFunctions(1)
+                .subscribe({ ans ->
+                    if (ans.msg == "true") {
+                        Main {
+                            AlertDialog.Builder(requireContext())
+                                .setTitle("Correct")
+                                .setIcon(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.ic_baseline_check_24,
+                                        resources.newTheme()
+                                    )
                                 )
-                            )
-                            .setMessage("Welcome, Controller~")
-                            .setCancelable(false)
-                            .setPositiveButton(
-                                "Confirm"
-                            ) { p0, p1 ->
-                                p0?.dismiss()
-                                findNavController().navigate(R.id.action_loginSuperUser_to_superMainPage)
-                            }.show()
-                    }
-                } else {
-                    Main {
-                        AlertDialog.Builder(requireContext())
-                            .setTitle("Warning")
-                            .setIcon(
-                                ResourcesCompat.getDrawable(
-                                    resources,
-                                    R.drawable.ic_baseline_error_outline_24,
-                                    resources.newTheme()
+                                .setMessage("Welcome, Controller~")
+                                .setCancelable(false)
+                                .setPositiveButton(
+                                    "Confirm"
+                                ) { p0, p1 ->
+                                    p0?.dismiss()
+                                    findNavController().navigate(R.id.action_loginSuperUser_to_superMainPage)
+                                }.show()
+                        }
+                    } else {
+                        Main {
+                            AlertDialog.Builder(requireContext())
+                                .setTitle("Warning")
+                                .setIcon(
+                                    ResourcesCompat.getDrawable(
+                                        resources,
+                                        R.drawable.ic_baseline_error_outline_24,
+                                        resources.newTheme()
+                                    )
                                 )
-                            )
-                            .setMessage("The key is wrong!")
-                            .setCancelable(false)
-                            .setPositiveButton(
-                                "Confirm"
-                            ) { p0, p1 -> p0?.dismiss() }.show()
+                                .setMessage("The key is wrong!")
+                                .setCancelable(false)
+                                .setPositiveButton(
+                                    "Confirm"
+                                ) { p0, p1 -> p0?.dismiss() }.show()
+                        }
                     }
-                }
-            }
+                }, {}).bindLife()
         }
     }
 }
