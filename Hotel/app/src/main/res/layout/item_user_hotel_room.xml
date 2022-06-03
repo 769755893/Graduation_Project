@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="androidx.core.text.HtmlCompat"/>
+        <variable
+            name="data"
+            type="com.app.project.hotel.base.responsmodel.UserHotelRoomDataModel.Data" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="10dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="#0f7f7f7f">
+
+        <ImageView
+            android:id="@+id/iv_room_icon"
+            android:layout_width="140dp"
+            android:layout_height="240dp"
+            android:scaleType="fitXY"
+            filterBitmap="@{data.roomIcon}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_room_desc"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:text="@{data.roomDesc}"
+            android:textColor="#7f000000"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_room_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_name"
+            tools:text="描述" />
+
+        <TextView
+            android:id="@+id/tv_room_name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@{data.roomName}"
+            android:textColor="#7f000000"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="特惠大床房" />
+
+        <TextView
+            android:id="@+id/tv_room_feature"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:text="@{data.roomFeature}"
+            android:textColor="#7f000000"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_room_desc"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_desc"
+            tools:text="特点" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/bg_keep_btn_round_unkeep"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_feature" />
+
+        <ImageView
+            android:id="@+id/iv_room_price_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="100dp"
+            android:src="@drawable/ic_hotel_min_price"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="@+id/tv_room_price" />
+
+        <TextView
+            android:id="@+id/tv_room_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="56dp"
+            android:text="@{HtmlCompat.fromHtml(`&lt;font color = #ff0000>`+ data.roomPrice + `&lt;/font>起`, HtmlCompat.FROM_HTML_MODE_COMPACT)}"
+            android:textColor="@color/primary"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_room_feature"
+            tools:text="75起" />
+
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/icon_description"
+            app:layout_constraintStart_toStartOf="@+id/imageView9"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_room"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitXY"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/icon_features"
+            app:layout_constraintStart_toStartOf="@+id/imageView8"
+            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+        <TextView
+            android:id="@+id/btn_order_room"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/selector_sign_up_btn"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:text="预订"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

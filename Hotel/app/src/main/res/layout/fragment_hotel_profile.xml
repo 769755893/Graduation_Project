@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.project.hotel.base.responsmodel.HotelMainPageDataModel.Data" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="60dp"
+            android:elevation="10dp"
+            android:gravity="center_horizontal"
+            android:text="请更新您的酒店一览图"
+            app:layout_constraintStart_toStartOf="@+id/iv_hotel_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_hotel_icon" />
+
+
+        <ImageView
+            android:id="@+id/iv_hotel_icon"
+            android:layout_width="169dp"
+            android:layout_height="171dp"
+            android:layout_marginStart="104dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/bg_border_line"
+            android:elevation="10dp"
+            android:scaleType="fitXY"
+            roundDrawable="@{data.hotelIcon != null ? data.hotelIcon : null}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_hotel_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tv_hotel_id"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:gravity="center_horizontal"
+            android:text="@{`认证编号：`+data.hotelId}"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            tools:text="酒店id" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="184dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_room"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hotel_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView2" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hotel_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView3" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hotel_phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView4" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hotel_desc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView5" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_hotel_min_price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView6" />
+
+        <TextView
+            android:id="@+id/tv_hotel_name"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:gravity="center_horizontal"
+            android:text="@={data.hotelName}"
+            android:singleLine="true"
+            android:textColorHint="#7f000000"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3"
+            tools:text="酒店名" />
+
+        <TextView
+            android:id="@+id/tv_hotel_location"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:text="@={data.hotelLocation}"
+            android:textColorHint="#7f000000"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4"
+            tools:text="酒店位置" />
+
+        <EditText
+            android:id="@+id/et_hotel_desc"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:gravity="center_horizontal"
+            android:hint="添加你酒店的描述"
+            android:singleLine="true"
+            android:layout_marginStart="10dp"
+            android:text="@={data.hotelDesc}"
+            android:textColorHint="#7f000000"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+
+        <EditText
+            android:id="@+id/et_hotel_min_price"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:gravity="center_horizontal"
+            android:hint="输入你酒店的起步价"
+            android:singleLine="true"
+            android:text="@={data.hotelMinPrice}"
+            android:layout_marginStart="10dp"
+            android:textColorHint="#7f000000"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <EditText
+            android:id="@+id/tv_hotel_phone"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:layout_marginStart="10dp"
+            android:singleLine="true"
+            android:gravity="center_horizontal"
+            android:text="@={data.hotelContactPhone}"
+            android:textColorHint="#7f000000"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            tools:text="联系电话" />
+
+
+        <TextView
+            android:id="@+id/tv_update_icon_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/selector_btn_normal_click"
+            android:elevation="10dp"
+            android:gravity="center_horizontal"
+            android:text="更新/上传"
+            app:layout_constraintStart_toStartOf="@+id/et_hotel_min_price"
+            app:layout_constraintTop_toBottomOf="@+id/et_hotel_min_price" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

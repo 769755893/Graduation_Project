@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.project.hotel.ui.fragments.login.hotel.LoginHotelData" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.LoginHotel">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/parent"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/parent"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="-70dp"
+                android:background="@drawable/bg_night_sky"
+                android:scaleType="fitXY"
+                tools:ignore="NotSibling" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/primary"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="6dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/selector_back_btn"
+                    android:src="@drawable/ic_baseline_chevron_left_24" />
+
+                <TextClock
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:format24Hour="HH:mm:ss"
+                    android:textAppearance="@color/white"
+                    android:textColor="#ff000000"
+                    android:textColorHighlight="@color/primary"
+                    android:textColorHint="@color/primary"
+                    android:textColorLink="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="107dp"
+                android:layout_marginTop="57dp"
+                android:text="提示：登陆时仅需输入你的认证编号和密码"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/et_hotel_id"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:singleLine="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="81dp"
+                android:background="@drawable/bg_edit_text_background"
+                android:hint="输入你的认证编号(登陆时)"
+                android:paddingLeft="10dp"
+                android:text="@={data.hotelId}"
+                android:textSize="10sp" />
+
+            <EditText
+                android:id="@+id/et_hotel_code"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:singleLine="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="136dp"
+                android:background="@drawable/bg_edit_text_background"
+                android:hint="输入你的密码(登陆时、注册时)"
+                android:paddingLeft="10dp"
+                android:text="@={data.hotelCode}"
+                android:textSize="10sp" />
+
+            <EditText
+                android:id="@+id/et_hotel_name"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="214dp"
+                android:singleLine="true"
+                android:background="@drawable/bg_edit_text_background"
+                android:hint="输入你的酒店名（注册时）"
+                android:paddingLeft="10dp"
+                android:text="@={data.hotelName}"
+                android:textSize="10sp" />
+
+            <EditText
+                android:id="@+id/et_hotel_location"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/et_hotel_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:singleLine="true"
+                android:background="@drawable/bg_edit_text_background"
+                android:hint="输入你的位置（注册时）"
+                android:paddingLeft="10dp"
+                android:text="@={data.hotelLocation}"
+                android:textSize="10sp" />
+
+            <EditText
+                android:id="@+id/et_hotel_phone"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/et_hotel_location"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:singleLine="true"
+                android:background="@drawable/bg_edit_text_background"
+                android:hint="输入你的联系电话（注册时）"
+                android:paddingLeft="10dp"
+                android:text="@={data.hotelPhone}"
+                android:textSize="10sp" />
+
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/et_hotel_phone"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_btn_normal_click"
+                android:text="登陆"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btn_login"
+                android:layout_toStartOf="@+id/btn_sign"
+                android:text="还未申请账号?"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/btn_sign"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/btn_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/selector_btn_normal_click"
+                android:text="注册"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

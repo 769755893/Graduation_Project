@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="data"
+            type="com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.roomlist.orderdialog.UserOrderData" />
+
+        <variable
+            name="dayCount"
+            type="Integer" />
+    </data>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
+            android:gravity="bottom"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp"
+                android:background="@color/white"
+                >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_order_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:elevation="10dp"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.starTime}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="4月19日 今天 -" />
+
+                <TextView
+                    android:id="@+id/tv_zhi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="至"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_time"
+                    app:layout_constraintTop_toTopOf="@+id/cl_order_msg"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@{data.endTime}"
+                    app:layout_constraintStart_toEndOf="@+id/tv_zhi"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="4月22日 3晚" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    textSpannerString="@{dayCount}"
+                    android:textColor="@color/primary"
+                    app:layout_constraintStart_toEndOf="@+id/tv_end_time"
+                    app:layout_constraintTop_toTopOf="@id/tv_end_time"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_room_over_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:singleLine="true"
+                    android:text="@{data.roomName + `  `+  data.roomDesc + `  ` + data.roomFeature}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_start_time"
+                    tools:text="特惠大床房，1.5米双人床，无早餐" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_df_xx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:elevation="10dp"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_order_msg">
+
+                <TextView
+                    android:id="@+id/tv_d_f_x_x"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="租客信息: "
+                    app:layout_constraintStart_toStartOf="@+id/cl_df_xx"
+                    app:layout_constraintTop_toTopOf="@+id/cl_df_xx" />
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`住客姓名: ` + data.userName}"
+                    app:layout_constraintStart_toStartOf="@id/cl_df_xx"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_d_f_x_x"
+                    tools:text="住客姓名: 吴成杰" />
+
+                <TextView
+                    android:id="@+id/tv_user_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{`联系电话: ` + data.userPhone}"
+                    app:layout_constraintStart_toStartOf="@id/cl_df_xx"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
+                    tools:text="联系电话: 17378582836" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_zf_xx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_df_xx">
+
+                <TextView
+                    android:id="@+id/tv_room_price_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="在线付 "
+                    app:layout_constraintStart_toStartOf="@id/cl_zf_xx"
+                    app:layout_constraintTop_toTopOf="@+id/cl_zf_xx" />
+
+                <ImageView
+                    android:id="@+id/iv_room_price_icon"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_normal_price"
+                    app:layout_constraintStart_toEndOf="@+id/tv_room_price_hint"
+                    app:layout_constraintTop_toTopOf="@id/tv_room_price" />
+
+                <TextView
+                    android:id="@+id/tv_room_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.roomPrice}"
+                    android:textColor="@color/primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/iv_room_price_icon"
+                    app:layout_constraintTop_toTopOf="@id/cl_zf_xx"
+                    tools:text="227" />
+
+                <TextView
+                    android:id="@+id/btn_order_confirm"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="150dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_keep_btn_round_keeping"
+                    android:gravity="center_horizontal"
+                    android:text="支付"
+                    app:layout_constraintStart_toEndOf="@+id/tv_room_price"
+                    app:layout_constraintTop_toTopOf="@id/cl_zf_xx" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+        </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.app.project.hotel.ui.fragments.login.sign.SignData" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.login.sign.LoginSignUpFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_sign_up" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/primary"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="6dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@drawable/selector_back_btn"
+                    android:src="@drawable/ic_baseline_chevron_left_24" />
+
+                <TextClock
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
+                    android:format24Hour="HH:mm:ss"
+                    android:textAppearance="@color/white"
+                    android:textColor="#ff000000"
+                    android:textColorHighlight="@color/primary"
+                    android:textColorHint="@color/primary"
+                    android:textColorLink="@color/primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <EditText
+                android:id="@+id/su_et_user_name_input"
+                android:layout_width="215dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="101dp"
+                android:layout_marginTop="239dp"
+
+                android:background="@drawable/bg_edit_text_background"
+                android:elevation="15dp"
+                android:hint="请输入你的用户名(最大12枚)"
+                android:maxLength="12"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:text="@={data.userName}"
+                android:textColor="#7F27394e"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/su_tv_exit_btn"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="139dp"
+                android:layout_marginTop="449dp"
+                android:background="@drawable/selector_sign_up_btn"
+                android:elevation="15dp"
+                android:gravity="center"
+                android:text="退出"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/su_tv_sign_btn"
+                android:layout_width="106dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="138dp"
+                android:layout_marginTop="399dp"
+                android:background="@drawable/selector_sign_up_btn"
+                android:elevation="15dp"
+                android:gravity="center"
+                android:text="注册"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/su_et_user_pass_input"
+                android:layout_width="215dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="101dp"
+                android:layout_marginTop="289dp"
+                android:background="@drawable/bg_edit_text_background"
+                android:elevation="15dp"
+                android:hint="请输入你的密码"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:text="@={data.userPass}"
+                android:textColor="#7F27394e"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/su_tv_user_pass"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="294dp"
+                android:elevation="15dp"
+                android:gravity="left"
+                android:text="密码"
+                android:textColor="#7fffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/su_tv_user_pass2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="345dp"
+                android:elevation="15dp"
+                android:gravity="left"
+                android:text="密保"
+                android:textColor="#7fffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/su_tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="244dp"
+                android:elevation="15dp"
+                android:gravity="left"
+                android:text="用户名"
+                android:textColor="#7fffffff"
+                android:textStyle="bold" />
+
+            <com.app.project.hotel.ui.view.EditTextDrawableView
+                android:id="@+id/tv_birth_day"
+                android:layout_width="215dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="101dp"
+                android:layout_marginTop="342dp"
+                android:background="@drawable/bg_edit_text_background"
+                android:drawableEnd="@drawable/icn_chevron_down_black"
+                android:hint="请选择您的生日作为密保"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@={data.userDate}"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

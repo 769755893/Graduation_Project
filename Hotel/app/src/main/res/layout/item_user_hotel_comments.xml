@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.core.text.HtmlCompat" />
+
+        <import type="androidx.core.text.StringKt" />
+
+        <variable
+            name="data"
+            type="com.app.project.hotel.base.responsmodel.HotelCommentDataModel.Data" />
+
+        <variable
+            name="goodClick"
+            type="kotlin.jvm.functions.Function0" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="24dp"
+            android:background="#0f7f7f7f"
+            android:padding="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_user_icon"
+                roundDrawable="@{data.userIcon}"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_login_user_logo" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="16dp"
+                android:text="@{data.userName}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="乐宇星空" />
+
+            <TextView
+                android:id="@+id/tv_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{data.startTime.replace(`0`,``).replace(`:`,``).replace(`.`,``) + `入住`}"
+                app:layout_constraintStart_toStartOf="@+id/tv_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
+                tools:text="2022-07-06入住" />
+
+            <TextView
+                android:id="@+id/tv_comment_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@{data.userCommentScore +`分`}"
+                app:layout_constraintStart_toEndOf="@+id/iv_score_class"
+                app:layout_constraintTop_toTopOf="@+id/iv_score_class"
+                tools:text="5.0分" />
+
+            <ImageView
+                android:id="@+id/iv_score_class"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="fitXY"
+                android:src="@{data.userCommentScore == 5 ? @drawable/ic_smile_1 : data.userCommentScore == 4? @drawable/ic_smile_2 : @drawable/ic_smile_3}"
+                app:layout_constraintStart_toStartOf="@+id/iv_user_icon"
+                app:layout_constraintTop_toBottomOf="@+id/iv_user_icon"
+                tools:src="@drawable/ic_smile_1" />
+
+            <TextView
+                android:id="@+id/tv_room_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@{data.roomName}"
+                app:layout_constraintStart_toEndOf="@+id/tv_comment_score"
+                app:layout_constraintTop_toTopOf="@+id/tv_comment_score"
+                tools:text="新风大床房" />
+
+            <TextView
+                android:id="@+id/tv_user_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:text="@{data.userComment}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_score_class"
+                tools:text="评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论评论" />
+
+            <LinearLayout
+                android:id="@+id/ll_good"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="280dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_red_border"
+                android:gravity="center_horizontal"
+                android:onClick="@{() -> goodClick.invoke()}"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_user_comment">
+
+                <ImageView
+                    android:id="@+id/iv_good_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_good_icon" />
+
+                <TextView
+                    android:id="@+id/tv_good_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.goodCnt}"
+                    tools:text="35" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

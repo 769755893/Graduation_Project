@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="data"
+            type="com.app.project.hotel.base.responsmodel.SuperManageHotelDataModel.Data" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
+        >
+
+        <TextView
+            android:id="@+id/tv_iv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="76dp"
+            android:text="请上传房间的图片"
+            android:textColor="@color/primary"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_room_icon"
+            filterBitmap="@{data.roomIcon}"
+            android:layout_width="100dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_border_line"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/et_room_feature"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="5dp"
+            android:elevation="10dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@={data.roomFeature}"
+            android:textColorHint="@color/primary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toBottomOf="@+id/et_room_desc" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_room"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="120dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_money"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="88dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_features"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="52dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_description"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/et_room_name"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@={data.roomName}"
+            android:textColorHint="@color/primary"
+            android:elevation="10dp"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/et_room_desc"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:elevation="10dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@={data.roomDescription}"
+            android:textColorHint="@color/primary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toBottomOf="@+id/et_room_name" />
+
+        <TextView
+            android:id="@+id/et_room_price"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edit_text_background"
+            android:elevation="10dp"
+            android:padding="5dp"
+            android:text="@={data.roomPrice}"
+            android:textColorHint="@color/primary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toBottomOf="@+id/et_room_feature" />
+
+        <Spinner
+            android:id="@+id/sr"
+            android:layout_width="130dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:entries="@array/sr"
+            android:selectedItemPosition="@{data.roomPublished == 1 ? 1 : 0}"
+            android:gravity="center_horizontal"
+            android:shadowColor="@color/primary"
+            android:background="@color/transparent"
+            android:elevation="10dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toBottomOf="@+id/et_room_price" />
+
+        <TextView
+            android:id="@+id/btn_upLoadroomMsg"
+            android:text="更新"
+            android:layout_width="123dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="148dp"
+            android:layout_marginTop="150dp"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:textSize="15sp"
+            android:elevation="10dp"
+            android:textStyle="bold"
+            android:background="@drawable/selector_btn_normal_click"
+            app:layout_constraintStart_toEndOf="@+id/iv_room_icon"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_room_check_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="20dp"
+            android:text="@{data.roomPublished == 0 ? `待审核` : `已审核`}"
+            android:textColor="#7fff0000"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/sr"
+            app:layout_constraintTop_toBottomOf="@+id/et_room_price"
+            tools:text="待审核" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
