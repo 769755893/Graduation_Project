@@ -22,8 +22,12 @@ abstract class BaseActivity<T: ViewBinding>: FragmentActivity(), BindLife {
         window.statusBarColor = Color.parseColor("#F5A623")
         viewBind = DataBindingUtil.setContentView(this, provideLayoutId())
         initCase()
+        initCaseSecond()
+        initCaseThird()
     }
     abstract fun initCase()
+    open fun initCaseSecond(){}
+    open fun initCaseThird(){}
 
     override fun onStart() {
         super.onStart()

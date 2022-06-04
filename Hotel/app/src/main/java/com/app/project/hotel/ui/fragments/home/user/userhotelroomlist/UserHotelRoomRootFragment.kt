@@ -35,12 +35,10 @@ class UserHotelRoomRootFragment : BaseFragment<FragmentUserHotelRoomPageBinding>
     override fun initCase() {
         val hotelId = requireArguments().getString("hotelId")!!
         hotelViewModel.initHotelMsg(hotelId)
-        viewModel.showDialog = {
-            showProgressDialog()
-        }
-        viewModel.initHotelRoomData(hotelId, requireContext())
-        viewModel.initHotelCommentData(hotelId) //初始的数据共享给其他fragment使用时，Root页面也使用activityViewModels
+        viewModel.initHotelRoomData(hotelId, showProgressDialog())
+        viewModel.initHotelCommentData(hotelId)
         hotelListViewModel.initRoomPageIconAndName(hotelId)
+
         val fragments = listOf(UserHotelRoomFragment(), HotelCommentFragment())
         viewBind.vp.adapter = UserHotelRoomVpAdapter(fragments, lifecycle, childFragmentManager)
         viewBind.vp.setPageTransformer(ZoomOutPageTransformer())

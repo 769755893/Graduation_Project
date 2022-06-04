@@ -32,6 +32,9 @@ class SuperManageUserFragment : BaseFragment<FragmentSuperManageUserBinding>() {
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initCase() {
+        viewBind.slRefreshLayout.setOnRefreshListener {
+            viewModel.flushUserList(dialog = showDownLoadUserListDiaolog(), sortType = 0)
+        }
         viewBind.spinner.adapter = ArrayAdapter<String>(
             requireContext(), R.layout.spinner_item, listOf(
                 "行为最优", "行为最差"
@@ -63,6 +66,7 @@ class SuperManageUserFragment : BaseFragment<FragmentSuperManageUserBinding>() {
         viewModel.data.observe(this) {
             adapter.data = it
             adapter.notifyDataSetChanged()
+            viewBind.slRefreshLayout.isRefreshing = false
         }
     }
 

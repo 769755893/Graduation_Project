@@ -26,29 +26,28 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserHotelRoomViewModel @Inject constructor(val service: UserApi) : BaseViewModel() {
-    var showDialog: (() -> ProgressDialog)? = null
     val data: MutableLiveData<MutableList<UserHotelRoomDataModel.Data?>> = MutableLiveData()
     val hotelCommentData: MutableLiveData<MutableList<HotelCommentDataModel.Data?>> =
         MutableLiveData()
+    var KEPP_HOTEL_ID_TEMPLY: String = ""
     var CURRENT_HOTEL_ID: String = ""
     var CURRENT_HOTEL_ID_COMMENT: String = ""
 
-    fun initHotelRoomData(hotelId: String, context: Context) {
-        val dialog = showDialog?.invoke()
+    fun initHotelRoomData(hotelId: String, dialog: ProgressDialog) {
+        dialog.show()
+        KEPP_HOTEL_ID_TEMPLY = hotelId
         if (CURRENT_HOTEL_ID == hotelId) {
-            dialog?.dismiss()
+            dialog.dismiss()
             return
         } else {
             service.getHotelRoomList(hotelId.toInt())
                 .autoSetupAllFunctions(4)
                 .subscribe({ ans ->
-                    if (ans.data != null) {
-                        data.postValue(ans.data!!.toMutableList())
-                    }
-                    dialog?.dismiss()
+                    data.postValue(ans.data?.toMutableList() ?: mutableListOf())
+                    dialog.dismiss()
                     CURRENT_HOTEL_ID = hotelId
                 }, {
-                    dialog?.dismiss()
+                    dialog.dismiss()
                 }).bindLife()
         }
     }
@@ -84,14 +83,17 @@ class UserHotelRoomViewModel @Inject constructor(val service: UserApi) : BaseVie
         }
     }
 
-    fun refreshCommentData(hotelId: String) {
+    fun refreshCommentData(hotelId: String, dialog: ProgressDialog ? = null) {
         service.getHotelCommentList(hotelId.toInt())
             .switchThread()
             .autoCatchErrorToast()
             .setupTimeOut(3)
             .subscribe({ ans ->
+                dialog?.dismiss()
                 hotelCommentData.postValue(ans.data!!.toMutableList())
-            }, {}).bindLife()
+            }, {
+                dialog?.dismiss()
+            }).bindLife()
     }
 
     fun gooClick(commentId: String) {

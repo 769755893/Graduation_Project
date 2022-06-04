@@ -3,7 +3,10 @@ package com.app.project.hotel.ui.activity
 import android.app.AlertDialog
 import android.view.MotionEvent
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.findNavController
 import com.app.project.hotel.R
 import com.app.project.hotel.common.BaseMainActivity
@@ -77,10 +80,10 @@ class MainActivity : BaseMainActivity() {
                     .show()
             }
         }
-        initViewCaseSecond()
     }
 
-    private fun initViewCaseSecond() {
+    fun addBackPressCallBack(lifecycleOwner: LifecycleOwner, onBackPressedCallback: OnBackPressedCallback) {
+        onBackPressedDispatcher.addCallback(lifecycleOwner, onBackPressedCallback)
     }
 
     private var currentIndex = 0

@@ -2,6 +2,7 @@ package com.app.project.hotel.ui.fragments.home.user.main
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -84,4 +85,12 @@ class UserMainPage : BaseFragment<FragmentUserMainPageBinding>() {
         })
     }
 
+    override fun initCaseThird() {
+        super.initCaseThird()
+        (requireActivity() as MainActivity).addBackPressCallBack(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() = setUpQuitAccount()
+            })
+    }
 }

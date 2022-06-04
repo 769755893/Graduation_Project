@@ -5,6 +5,7 @@ import android.os.Build
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.core.graphics.drawable.toBitmap
@@ -27,6 +28,7 @@ import com.example.uitraning.util.showToast
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -62,7 +64,7 @@ class LoginMainFragment : BaseFragment<FragmentLoginMainBinding>() {
     override fun initViewModelData() {
         super.initViewModelData()
         Co.launch {
-            delay(1000)
+            delay(4000)
             viewModel.getUserIcon(viewBind.etUserNameInput.text.toString(), resources)
         }
     }
@@ -201,5 +203,14 @@ class LoginMainFragment : BaseFragment<FragmentLoginMainBinding>() {
                     findNavController().navigate(R.id.action_loginMain_to_loginSignUp)
                 }.bindLife()
         }
+    }
+
+    override fun initCaseSecond() {
+        super.initCaseSecond()
+        (requireActivity() as MainActivity).addBackPressCallBack(this, object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        })
     }
 }

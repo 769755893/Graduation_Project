@@ -3,8 +3,25 @@ package com.app.project.hotel.ui.view.dialog
 import android.app.ProgressDialog
 import com.app.project.hotel.databinding.*
 import com.app.project.hotel.common.BaseFragment
+import com.example.uitraning.util.log
 
 fun BaseFragment<FragmentUserHotelRoomPageBinding>.showProgressDialog(): ProgressDialog {
+    val dialog = object : ProgressDialog(requireContext()) {}
+    dialog.setTitle("加载中，请稍后")
+    dialog.setCanceledOnTouchOutside(false)
+    dialog.show()
+    return dialog
+}
+
+fun BaseFragment<FragmentUserHotelRoomCommentBinding>.showLoadDialog(): ProgressDialog {
+    val dialog = object : ProgressDialog(requireContext()) {}
+    dialog.setTitle("加载中，请稍后")
+    dialog.setCanceledOnTouchOutside(false)
+    dialog.show()
+    return dialog
+}
+
+fun BaseFragment<FragmentUserRoomListBinding>.showProgressDialogL(): ProgressDialog {
     val dialog = object : ProgressDialog(requireContext()) {}
     dialog.setTitle("加载中，请稍后")
     dialog.setCanceledOnTouchOutside(false)

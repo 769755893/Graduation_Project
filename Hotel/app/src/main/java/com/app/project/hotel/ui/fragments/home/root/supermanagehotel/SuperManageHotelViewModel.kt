@@ -6,13 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.project.hotel.api.SuperApi
+import com.app.project.hotel.base.myapplicationContext
 import com.app.project.hotel.base.responsmodel.SuperManageHotelDataModel
+import com.app.project.hotel.common.mwindow
 import com.app.project.hotel.databinding.ItemSuperManageHotelParentBinding
 import com.app.project.hotel.databinding.ItemSuperManageRoomChildBinding
 import com.example.uitraning.util.coroutines.Main
+import com.example.uitraning.util.showToast
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,10 +34,18 @@ class SuperManageHotelViewModel @Inject constructor(val service: SuperApi) : Vie
         sortType: Int
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            val ans = service.queryHotelList(hotelId, hotelName, hotelLocation, offset, sortType)
-            parentData.postValue(ans.data!!.toMutableList())
+            try {
+                withTimeout(5000) {
+                    val ans =
+                        service.queryHotelList(hotelId, hotelName, hotelLocation, offset, sortType)
+                    parentData.postValue(ans.data!!.toMutableList())
+                    dialog.dismiss()
+                }
+            } catch (e: Exception) {
+                showToast(myapplicationContext, "网络开小差了, 请稍后再试", mwindow, false)
+                dialog.dismiss()
+            }
         }
-        dialog.dismiss()
     }
 
     fun downLoadRoomList(hotelId: String, downRoomDialog: ProgressDialog) {

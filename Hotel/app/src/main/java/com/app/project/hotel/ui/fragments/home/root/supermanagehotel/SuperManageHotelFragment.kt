@@ -38,6 +38,10 @@ class SuperManageHotelFragment : BaseFragment<FragmentSuperManageHotelBinding>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initCase() {
+        viewBind.slRefreshLayout.setOnRefreshListener {
+            viewModel.downLoadHotelList(dialog = showDownLoadProcess(), sortType = 0)
+        }
+
         viewBind.spinner.adapter = ArrayAdapter<String>(
             requireContext(), R.layout.spinner_item, listOf(
                 "行为最优", "行为最差"
@@ -67,6 +71,7 @@ class SuperManageHotelFragment : BaseFragment<FragmentSuperManageHotelBinding>()
             }
             adapter.data = it
             adapter.notifyDataSetChanged()
+            viewBind.slRefreshLayout.isRefreshing = false
         }
 
         var mposition = 0

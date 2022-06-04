@@ -3,11 +3,20 @@ package com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.roomlist
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.graphics.drawable.ColorDrawable
+import android.media.tv.TvView
 import android.os.Build
+import android.view.InputEvent
+import android.view.MotionEvent
+import android.view.VelocityTracker
+import android.view.View
+import android.widget.AbsListView
 import androidx.annotation.RequiresApi
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.app.project.hotel.R
 import com.app.project.hotel.databinding.FragmentUserRoomListBinding
 import com.app.project.hotel.databinding.ItemUserHotelRoomBinding
@@ -18,6 +27,7 @@ import com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.UserHotelR
 import com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.roomlist.orderdialog.UserOrderData
 import com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.roomlist.orderdialog.showOrderDialog
 import com.app.project.hotel.ui.fragments.home.user.userprofile.ProFileViewModel
+import com.app.project.hotel.ui.view.dialog.showProgressDialogL
 import com.app.project.hotel.ui.view.pickerview.showTimePicker
 import com.example.uitraning.util.Utils
 import com.example.uitraning.util.log
@@ -39,6 +49,7 @@ class UserHotelRoomFragment() : BaseFragment<FragmentUserRoomListBinding>() {
         viewBind.rv.adapter = adapter
 
         viewModel.data.observe(this) {
+            viewBind.slRefreshLayout.isRefreshing = false
             adapter.data = it
             adapter.notifyDataSetChanged()
         }
@@ -101,16 +112,56 @@ class UserHotelRoomFragment() : BaseFragment<FragmentUserRoomListBinding>() {
         }
     }
 
-
+    var startRawY = 0F
+    var startY = 0F
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun initCaseSecond() {
-        super.initCaseSecond()
-        val activity = activity as MainActivity
-        activity.touchY = {
-            val color = 0xF5A623 + it
-            color.log("此时的颜色")
-            viewBind.tvStartTime.setTextColor(color.toInt())
-            viewBind.tvEndTime.setTextColor(color.toInt())
+        viewBind.slRefreshLayout.setOnRefreshListener {
+            viewModel.CURRENT_HOTEL_ID = ""
+            viewModel.initHotelRoomData(viewModel.KEPP_HOTEL_ID_TEMPLY, showProgressDialogL())
         }
+
+        viewBind.rv.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                v ?: return false
+                event ?: return false
+
+                val tracker = VelocityTracker.obtain()
+                tracker.addMovement(event)
+                tracker.computeCurrentVelocity(1000)
+
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        startY = event.y
+                        startRawY = event.rawY
+                    }
+                    MotionEvent.ACTION_UP -> {
+                       val judgeY = (event.y - startY)
+                        if (judgeY < -15) {
+                            viewBind.tvStartTime.setTextColor(ResourcesCompat.getColor(resources, R.color.white, resources.newTheme()))
+                            viewBind.tvEndTime.setTextColor(ResourcesCompat.getColor(resources, R.color.white, resources.newTheme()))
+                            viewBind.tvEndTime.setHintTextColor(ResourcesCompat.getColor(resources, R.color.white, resources.newTheme()))
+                            viewBind.tvZhi.setTextColor(ResourcesCompat.getColor(resources, R.color.white, resources.newTheme()))
+                            viewBind.tvDayCount.setTextColor(ResourcesCompat.getColor(resources, R.color.white, resources.newTheme()))
+                            viewBind.tvCommentHint.setTextColor(ResourcesCompat.getColor(resources, R.color.white, resources.newTheme()))
+                        } else if (judgeY > 15) {
+                            viewBind.tvStartTime.setTextColor(ResourcesCompat.getColor(resources, R.color.primary, resources.newTheme()))
+                            viewBind.tvEndTime.setTextColor(ResourcesCompat.getColor(resources, R.color.primary, resources.newTheme()))
+                            viewBind.tvEndTime.setHintTextColor(ResourcesCompat.getColor(resources, R.color.primary, resources.newTheme()))
+                            viewBind.tvZhi.setTextColor(ResourcesCompat.getColor(resources, R.color.primary, resources.newTheme()))
+                            viewBind.tvDayCount.setTextColor(ResourcesCompat.getColor(resources, R.color.primary, resources.newTheme()))
+                            viewBind.tvCommentHint.setTextColor(ResourcesCompat.getColor(resources, R.color.primary, resources.newTheme()))
+                        }
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        tracker.yVelocity.log()
+                    }
+                }
+
+                return false
+            }
+
+        })
     }
 
     override fun provideLayoutId() = R.layout.fragment_user_room_list
