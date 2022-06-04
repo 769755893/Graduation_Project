@@ -29,9 +29,7 @@ class UserHotelListViewModel @Inject constructor(val service: UserApi) : BaseVie
 
     fun getHotelCount() {
         service.getHotelCount()
-            .switchThread()
-            .autoCatchErrorToast()
-            .setupTimeOut(2)
+            .autoSetupAllFunctions(2)
             .subscribe({
                 pageCount.postValue((it.data as String).toInt())
             }, {}).bindLife()
@@ -44,7 +42,7 @@ class UserHotelListViewModel @Inject constructor(val service: UserApi) : BaseVie
         showProgressDialog: ProgressDialog
     ) {
         service.getHotelList(sortType, offset!!, keyWord)
-            .autoSetupAllFunctions(4)
+            .autoSetupAllFunctions(6)
             .subscribe({
                 if (it?.data?.size != 0)
                     data.postValue(it!!.data?.toMutableList())

@@ -41,7 +41,7 @@ class UserOrderListFragment : BaseFragment<FragmentUserOrderListBinding>() {
                 viewBind.slRefreshLayout.isRefreshing = false
             }
         }
-        viewModel.getOrderLength(userViewModel.data.value?.userId!!)
+        viewModel.getOrderLength(userViewModel.data.value?.userId)
 
         viewModel.loadFailed = {
             viewBind.slRefreshLayout.isRefreshing = false

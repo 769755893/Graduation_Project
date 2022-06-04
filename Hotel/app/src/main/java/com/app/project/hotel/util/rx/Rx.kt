@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import com.app.project.hotel.base.myapplicationContext
 import com.app.project.hotel.common.mwindow
 import com.example.uitraning.util.coroutines.Co
+import com.example.uitraning.util.coroutines.Main
 import com.example.uitraning.util.log
 import com.example.uitraning.util.showToast
 import io.reactivex.Observable
@@ -25,8 +26,8 @@ reified  make the object match all the constraint
  */
 fun <T> Single<T>.autoSetupAllFunctions(time: Long): Single<T> = compose(SingleTransformer {
     it.switchThread()
-        .autoCatchErrorToast()
         .setupTimeOut(time)
+        .autoCatchErrorToast()
 })
 
 fun <T> Single<T>.switchThread(): Single<T> = compose(SingleTransformer {

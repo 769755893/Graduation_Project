@@ -38,7 +38,7 @@ class UserHotelRoomRootFragment : BaseFragment<FragmentUserHotelRoomPageBinding>
         viewModel.showDialog = {
             showProgressDialog()
         }
-        viewModel.initHotelRoomData(hotelId)
+        viewModel.initHotelRoomData(hotelId, requireContext())
         viewModel.initHotelCommentData(hotelId) //初始的数据共享给其他fragment使用时，Root页面也使用activityViewModels
         hotelListViewModel.initRoomPageIconAndName(hotelId)
         val fragments = listOf(UserHotelRoomFragment(), HotelCommentFragment())

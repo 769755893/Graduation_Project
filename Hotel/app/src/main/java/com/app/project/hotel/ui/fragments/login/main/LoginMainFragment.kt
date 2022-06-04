@@ -21,10 +21,14 @@ import com.app.project.hotel.common.mPackageName
 import com.app.project.hotel.common.mwindow
 import com.app.project.hotel.ui.view.EditTextDrawableView
 import com.example.uitraning.util.Utils
+import com.example.uitraning.util.coroutines.Co
+import com.example.uitraning.util.log
 import com.example.uitraning.util.showToast
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -32,7 +36,6 @@ import kotlin.system.exitProcess
 class LoginMainFragment : BaseFragment<FragmentLoginMainBinding>() {
     private val viewModel by viewModels<LoginMainViewModel>()
     private var keep = false
-    private var backPressCnt = 0
     override fun onStart() {
         super.onStart()
         (activity as MainActivity).apply {
@@ -56,6 +59,15 @@ class LoginMainFragment : BaseFragment<FragmentLoginMainBinding>() {
 
     override fun provideLayoutId() = R.layout.fragment_login_main
 
+    override fun initViewModelData() {
+        super.initViewModelData()
+        Co.launch {
+            delay(1000)
+            viewModel.getUserIcon(viewBind.etUserNameInput.text.toString(), resources)
+        }
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.N)
     override fun initCase() {
         viewBind.ivSupport.clicks().subscribe {
@@ -74,11 +86,14 @@ class LoginMainFragment : BaseFragment<FragmentLoginMainBinding>() {
 
     private fun textGurad() {
         viewBind.etUserNameInput.textChanges()
+            .skip(1, TimeUnit.SECONDS)
             .throttleFirst(2, TimeUnit.SECONDS)
             .subscribe {
                 viewModel.getUserIcon(it.toString(), resources)
             }.bindLife()
+
         viewBind.etUserPassInput.textChanges()
+            .skip(1, TimeUnit.SECONDS)
             .throttleFirst(2, TimeUnit.SECONDS)
             .subscribe {
                 viewModel.getUserIcon(viewBind.etUserNameInput.text.toString(), resources)

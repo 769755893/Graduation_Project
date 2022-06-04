@@ -1,22 +1,24 @@
 package com.app.project.hotel.ui.fragments.home.user.userhotelroomlist
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.project.hotel.api.UserApi
+import com.app.project.hotel.base.myapplicationContext
 import com.app.project.hotel.base.responsmodel.HotelCommentDataModel
 import com.app.project.hotel.base.responsmodel.UserHotelRoomDataModel
 import com.app.project.hotel.common.BaseViewModel
 import com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.roomlist.orderdialog.UserOrderData
 import com.example.uitraning.util.coroutines.Co
+import com.example.uitraning.util.coroutines.Main
 import com.example.uitraning.util.log
-import com.example.uitraning.util.rx.Rx
-import com.example.uitraning.util.rx.autoCatchErrorToast
-import com.example.uitraning.util.rx.setupTimeOut
-import com.example.uitraning.util.rx.switchThread
+import com.example.uitraning.util.rx.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,23 +33,23 @@ class UserHotelRoomViewModel @Inject constructor(val service: UserApi) : BaseVie
     var CURRENT_HOTEL_ID: String = ""
     var CURRENT_HOTEL_ID_COMMENT: String = ""
 
-    fun initHotelRoomData(hotelId: String) {
+    fun initHotelRoomData(hotelId: String, context: Context) {
         val dialog = showDialog?.invoke()
         if (CURRENT_HOTEL_ID == hotelId) {
             dialog?.dismiss()
             return
         } else {
             service.getHotelRoomList(hotelId.toInt())
-                .switchThread()
-                .autoCatchErrorToast()
-                .setupTimeOut(2)
+                .autoSetupAllFunctions(4)
                 .subscribe({ ans ->
                     if (ans.data != null) {
                         data.postValue(ans.data!!.toMutableList())
                     }
                     dialog?.dismiss()
-                }, { dialog?.dismiss() }).bindLife()
-            CURRENT_HOTEL_ID = hotelId
+                    CURRENT_HOTEL_ID = hotelId
+                }, {
+                    dialog?.dismiss()
+                }).bindLife()
         }
     }
 
@@ -74,11 +76,11 @@ class UserHotelRoomViewModel @Inject constructor(val service: UserApi) : BaseVie
             service.getHotelCommentList(hotelId.toInt())
                 .switchThread()
                 .autoCatchErrorToast()
-                .setupTimeOut(2)
+                .setupTimeOut(3)
                 .subscribe({ ans ->
                     hotelCommentData.postValue(ans.data!!.toMutableList())
+                    CURRENT_HOTEL_ID_COMMENT = hotelId
                 }, {}).bindLife()
-            CURRENT_HOTEL_ID_COMMENT = hotelId
         }
     }
 
@@ -86,7 +88,7 @@ class UserHotelRoomViewModel @Inject constructor(val service: UserApi) : BaseVie
         service.getHotelCommentList(hotelId.toInt())
             .switchThread()
             .autoCatchErrorToast()
-            .setupTimeOut(2)
+            .setupTimeOut(3)
             .subscribe({ ans ->
                 hotelCommentData.postValue(ans.data!!.toMutableList())
             }, {}).bindLife()

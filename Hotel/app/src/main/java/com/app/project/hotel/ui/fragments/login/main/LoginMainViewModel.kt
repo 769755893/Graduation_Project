@@ -57,7 +57,7 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
 
     fun getUserIcon(userid: String, resources: Resources) {
         service.getUserIcon(userid)
-            .autoSetupAllFunctions(1)
+            .autoSetupAllFunctions(2)
             .subscribe({ ans ->
                 if (ans.msg == "true") {
                     userIcon.postValue(
@@ -99,7 +99,7 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
             msgCallBack.toast("用户/密码不能为空", false)
         } else {
             service.userLogin(userName, userPass)
-                .autoSetupAllFunctions(1)
+                .autoSetupAllFunctions(2)
                 .subscribe({ ans ->
                     when (ans.msg) {
                         "封号中" -> {
@@ -135,7 +135,9 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
                         }
                         else -> {}
                     }
-                }, { showProgressDialog.dismiss() }).bindLife()
+                }, {
+                    showProgressDialog.dismiss()
+                }).bindLife()
 
         }
 

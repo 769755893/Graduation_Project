@@ -42,14 +42,15 @@ class UserOrderListViewModel @Inject constructor(val service: UserApi) : BaseVie
     var pageCount: MutableLiveData<Int> = MutableLiveData()
     var loadFailed: (() -> Unit)? = null
 
-    fun getOrderLength(userId: String) {
-        service.getOrderLength(userId)
-            .switchThread()
-            .autoCatchErrorToast()
-            .setupTimeOut(1)
-            .subscribe({ ans ->
-                pageCount.postValue((ans.data as String).toInt())
-            }) { loadFailed?.invoke() }.bindLife()
+    fun getOrderLength(userId: String?) {
+        if (userId != null)
+            service.getOrderLength(userId)
+                .switchThread()
+                .autoCatchErrorToast()
+                .setupTimeOut(1)
+                .subscribe({ ans ->
+                    pageCount.postValue((ans.data as String).toInt())
+                }) { loadFailed?.invoke() }.bindLife()
     }
 
     fun initOrderListData(

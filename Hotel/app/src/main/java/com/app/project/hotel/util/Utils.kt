@@ -37,6 +37,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.app.project.hotel.R
 import com.app.project.hotel.databinding.DialogMyToastBinding
 import com.app.project.hotel.common.mwindow
+import com.example.uitraning.util.coroutines.Main
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -62,28 +63,30 @@ fun Any?.log(e: Any ? = "") {
 }
 
 fun showToast(context: Context, text: String, window: Window, state: Boolean = true) {
-    val t = Toast(context)
-    val viewbinding = DataBindingUtil.inflate<DialogMyToastBinding>(
-        LayoutInflater.from(context),
-        R.layout.dialog_my_toast,
-        window.decorView as ViewGroup,
-        false
-    )
-    if (!state) {
-        viewbinding.ivToastIcon.setImageDrawable(
-            ResourcesCompat.getDrawable(
-                context.resources,
-                R.drawable.ic_baseline_error_24,
-                context.resources.newTheme()
-            )
+    Main {
+        val t = Toast(context)
+        val viewbinding = DataBindingUtil.inflate<DialogMyToastBinding>(
+            LayoutInflater.from(context),
+            R.layout.dialog_my_toast,
+            window.decorView as ViewGroup,
+            false
         )
+        if (!state) {
+            viewbinding.ivToastIcon.setImageDrawable(
+                ResourcesCompat.getDrawable(
+                    context.resources,
+                    R.drawable.ic_baseline_error_24,
+                    context.resources.newTheme()
+                )
+            )
+        }
+        viewbinding.tvContent.text = text
+        val lp = FrameLayout.LayoutParams(viewbinding.root.layoutParams)
+        lp.gravity = Gravity.TOP
+        t.view = viewbinding.root
+        t.duration = Toast.LENGTH_SHORT
+        t.show()
     }
-    viewbinding.tvContent.text = text
-    val lp = FrameLayout.LayoutParams(viewbinding.root.layoutParams)
-    lp.gravity = Gravity.TOP
-    t.view = viewbinding.root
-    t.duration = Toast.LENGTH_SHORT
-    t.show()
 }
 
 
@@ -317,7 +320,7 @@ object Utils {
     }
 
     suspend fun toast(context: Context, str: String, state: Boolean) {
-        withContext(Dispatchers.Main) {
+        Main {
             showToast(context, str, mwindow, state)
         }
     }
