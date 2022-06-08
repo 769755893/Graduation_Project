@@ -13,6 +13,7 @@ import com.app.project.hotel.common.BaseFragment
 import com.app.project.hotel.ui.activity.MainActivity
 import com.app.project.hotel.ui.fragments.home.user.userhotellist.UserHotelListViewModel
 import com.app.project.hotel.ui.fragments.home.user.userhotelroomlist.UserHotelRoomViewModel
+import com.app.project.hotel.ui.view.dialog.showLoadDialog
 import com.example.uitraning.util.Utils
 import com.example.uitraning.util.log
 import com.jakewharton.rxbinding3.view.clicks
@@ -40,7 +41,7 @@ class HotelCommentFragment : BaseFragment<FragmentUserHotelRoomCommentBinding>()
             }
         }
         viewBind.slRefreshLayout.setOnRefreshListener {
-            viewModel.refreshCommentData(hotelListViewModel.roomPageData.value?.hotelId!!)
+            viewModel.refreshCommentData(hotelListViewModel.roomPageData.value?.hotelId!!, dialog = showLoadDialog())
         }
 
         hotelListViewModel.roomPageData.observe(this) {

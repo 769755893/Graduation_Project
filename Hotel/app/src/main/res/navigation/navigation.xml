@@ -169,6 +169,13 @@
             app:exitAnim="@anim/bottom_out_anim"
             app:popEnterAnim="@anim/bottom_in_anim"
             app:popExitAnim="@anim/bottom_out_anim" />
+        <action
+            android:id="@+id/action_superMainPage_to_loginMain"
+            app:destination="@id/loginMain"
+            app:enterAnim="@anim/bottom_in_anim"
+            app:exitAnim="@anim/bottom_out_anim"
+            app:popEnterAnim="@anim/bottom_in_anim"
+            app:popExitAnim="@anim/bottom_out_anim" />
     </fragment>
     <fragment
         android:id="@+id/hotelMainPage"

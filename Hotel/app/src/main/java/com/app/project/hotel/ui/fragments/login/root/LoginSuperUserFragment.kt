@@ -6,12 +6,15 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
 import com.app.project.hotel.R
 import com.app.project.hotel.api.SuperApi
+import com.app.project.hotel.base.myapplicationContext
 import com.app.project.hotel.databinding.FragmentLoginSuperUserBinding
 import com.app.project.hotel.ui.activity.MainActivity
 import com.app.project.hotel.common.BaseFragment
+import com.app.project.hotel.common.mwindow
 import com.example.uitraning.util.coroutines.Co
 import com.example.uitraning.util.coroutines.Main
 import com.example.uitraning.util.rx.autoSetupAllFunctions
+import com.example.uitraning.util.showToast
 import com.jakewharton.rxbinding3.view.clicks
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -91,6 +94,8 @@ class LoginSuperUserFragment : BaseFragment<FragmentLoginSuperUserBinding>() {
                         }
                     }
                 }, {}).bindLife()
+        } else {
+            showToast(myapplicationContext, "please confirm your enter key is empty or not ?", mwindow, false)
         }
     }
 }

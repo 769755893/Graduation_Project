@@ -47,7 +47,7 @@ class UserOrderListViewModel @Inject constructor(val service: UserApi) : BaseVie
             service.getOrderLength(userId)
                 .switchThread()
                 .autoCatchErrorToast()
-                .setupTimeOut(1)
+                .setupTimeOut(2)
                 .subscribe({ ans ->
                     pageCount.postValue((ans.data as String).toInt())
                 }) { loadFailed?.invoke() }.bindLife()
@@ -61,17 +61,16 @@ class UserOrderListViewModel @Inject constructor(val service: UserApi) : BaseVie
         orderTimeType: Int
     ) {
         service.getOrderList(userId, hotelId, offset, orderTimeType)
-            .autoSetupAllFunctions(4)
+            .autoSetupAllFunctions(10)
             .subscribe({
+                dialog?.dismiss()
                 val ans = it.data
                 if (ans?.size == 0) {
                     Main {
                         notifyOrderListEmpty?.invoke()
-                        dialog?.dismiss()
                     }
-                } else {
-                    data.postValue(ans!!.toMutableList())
-                    dialog?.dismiss()
+                } else if (ans != null) {
+                    data.postValue(ans.toMutableList())
                 }
             }) {
                 dialog?.dismiss()

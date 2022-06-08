@@ -2,6 +2,7 @@ package com.app.project.hotel.ui.fragments.home.user.userprofile.passorder
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import com.app.project.hotel.ui.fragments.home.user.userorderlist.showProgress
 import com.app.project.hotel.ui.fragments.home.user.userprofile.ProFileViewModel
 import com.app.project.hotel.ui.fragments.home.user.userprofile.showUserPassOrderTimePicker
 import com.jakewharton.rxbinding3.view.clicks
+import com.jakewharton.rxbinding3.view.visibility
 import com.jakewharton.rxbinding3.widget.textChanges
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
@@ -49,6 +51,10 @@ class UserPassOrderFragment : BaseFragment<FragmentUserPassOrderBinding>() {
         viewBind.rv.adapter = adapter
 
         viewModel.data.observe(this) {
+            if (it.size != 0) {
+                viewBind.tvNoData.visibility = View.GONE
+            }
+            viewBind.slRefreshLayout.isRefreshing = false
             adapter.data = it
             adapter.notifyDataSetChanged()
         }
@@ -120,6 +126,17 @@ class UserPassOrderFragment : BaseFragment<FragmentUserPassOrderBinding>() {
                 adapter.data = data
                 adapter.notifyDataSetChanged()
             }
+        }
+    }
+
+    override fun initCaseThird() {
+        super.initCaseThird()
+        viewBind.slRefreshLayout.setOnRefreshListener {
+            viewModel.initOrderListData(
+                userId = userViewModel.data.value?.userId,
+                dialog = showProgress(),
+                orderTimeType = -1
+            )
         }
     }
 }

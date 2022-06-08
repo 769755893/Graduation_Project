@@ -116,6 +116,7 @@ class UserHotelListFragment : BaseFragment<FragmentUserHotelListBinding>() {
         viewBind.ivClearBtn.clicks()
             .subscribe {
                 viewBind.etSearchContentText.text.clear()
+                viewModel.getHotelList(0, 0, showProgressDialog = showProgressDialog())
             }.bindLife()
     }
 

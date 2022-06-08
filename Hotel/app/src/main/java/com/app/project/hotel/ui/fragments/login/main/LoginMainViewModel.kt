@@ -92,6 +92,7 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
         isKeep: Boolean,
         showProgressDialog: ProgressDialog
     ) {
+        "LoginRequest".log()
         val userName = viewBind.data?.username ?: ""
         val userPass = viewBind.data?.userpass ?: ""
         if (userName.isBlank() || userPass.isBlank()) {
@@ -101,10 +102,10 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
             service.userLogin(userName, userPass)
                 .autoSetupAllFunctions(2)
                 .subscribe({ ans ->
+                    showProgressDialog.dismiss()
                     when (ans.msg) {
                         "封号中" -> {
                             Main {
-                                showProgressDialog.dismiss()
                                 msgCallBack.toast("您的账号已被封禁,请联系管理员", false)
                             }
                         }
@@ -116,7 +117,6 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
                                     R.id.userMainPage,
                                     data
                                 )
-                                showProgressDialog.dismiss()
                                 msgCallBack.toast("登录成功", true)
                             }
                             if (isKeep) {
@@ -129,13 +129,15 @@ class LoginMainViewModel @Inject constructor(val service: LoginApi) : BaseViewMo
                         }
                         "false" -> {
                             Main {
-                                showProgressDialog.dismiss()
                                 msgCallBack.toast("用户名或密码错误", false)
                             }
                         }
-                        else -> {}
+                        else -> {
+                            showToast(myapplicationContext, "网络丢包了，休息一下再试吧", mwindow, false)
+                        }
                     }
                 }, {
+                    "Login Failed".log("Time out")
                     showProgressDialog.dismiss()
                 }).bindLife()
 

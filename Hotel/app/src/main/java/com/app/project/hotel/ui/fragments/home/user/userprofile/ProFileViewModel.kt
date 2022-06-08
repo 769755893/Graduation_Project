@@ -32,7 +32,9 @@ class ProFileViewModel @Inject constructor(val service: UserApi) : BaseViewModel
     val userMoney: MutableLiveData<String> = MutableLiveData()
     var userChargeState: ((state: Boolean) -> Unit)? = null
     var userPayState: ((state: Boolean) -> Unit)? = null
+    var KEEP_USER_ID = ""
     fun initUserData(userId: String) {
+        KEEP_USER_ID = userId
         service.getUserMsg(userId)
             .autoSetupAllFunctions(2)
             .subscribe({
@@ -67,7 +69,7 @@ class ProFileViewModel @Inject constructor(val service: UserApi) : BaseViewModel
     }
 
     fun getUserMoney() {
-        service.getUserMoney(data.value!!.userId)
+        service.getUserMoney(KEEP_USER_ID)
             .autoSetupAllFunctions(2)
             .subscribe({
                 userMoney.postValue(it.data as String)
