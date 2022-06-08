@@ -27,7 +27,6 @@ import javax.inject.Inject
 class PassOrderViewModel @Inject constructor(val service: UserApi) : BaseViewModel() {
     val data: MutableLiveData<MutableList<UserOrderListDataModel.Data?>> = MutableLiveData()
     var refreshUI: ((position: Int, state: Int) -> Unit)? = null
-    var notifyOrderListEmpty: (() -> Unit)? = null
     var pageCount: MutableLiveData<Int> = MutableLiveData()
 
     fun getOrderLength(userId: String) {
@@ -48,14 +47,7 @@ class PassOrderViewModel @Inject constructor(val service: UserApi) : BaseViewMod
         service.getOrderList(userId, hotelId, offset, orderTimeType)
             .autoSetupAllFunctions(4)
             .subscribe({ ans ->
-                if (ans?.data?.size == 0) {
-                    Main {
-                        notifyOrderListEmpty?.invoke()
-                        dialog?.dismiss()
-                    }
-                } else if (!ans?.data.isNullOrEmpty()) {
-                    data.postValue(ans.data!!.toMutableList())
-                }
+                data.postValue(ans.data?.toMutableList() ?: mutableListOf())
                 dialog?.dismiss()
             }, { dialog?.dismiss() }).bindLife()
     }

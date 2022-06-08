@@ -41,7 +41,7 @@ class UserHotelRoomViewModel @Inject constructor(val service: UserApi) : BaseVie
             return
         } else {
             service.getHotelRoomList(hotelId.toInt())
-                .autoSetupAllFunctions(4)
+                .autoSetupAllFunctions(8)
                 .subscribe({ ans ->
                     data.postValue(ans.data?.toMutableList() ?: mutableListOf())
                     dialog.dismiss()
